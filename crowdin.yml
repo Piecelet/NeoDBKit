@@ -1,0 +1,4 @@
+files:
+  - source: /Sources/NeoDBModels/Resources/*.xcstrings
+    translation: /Sources/NeoDBModels/Resources/Crowdin_%original_file_name%
+    multilingual: 1
