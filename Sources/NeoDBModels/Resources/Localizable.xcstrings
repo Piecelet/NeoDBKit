@@ -1,0 +1,570 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "neodb.common.visibility.followers_only.description" : {
+      "comment" : "NeoDB Visibility - Description for unlisted visibility option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Only your followers can see it."
+          }
+        }
+      }
+    },
+    "neodb.common.visibility.followers_only.label" : {
+      "comment" : "NeoDB Visibility, for collections and marks - Label for unlisted visibility option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Followers Only"
+          }
+        }
+      }
+    },
+    "neodb.common.visibility.private.description" : {
+      "comment" : "NeoDB Visibility - Description for private visibility option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Only you can see it."
+          }
+        }
+      }
+    },
+    "neodb.common.visibility.private.label" : {
+      "comment" : "NeoDB Visibility, for collections and marks - Label for private visibility option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Private"
+          }
+        }
+      }
+    },
+    "neodb.common.visibility.public.description" : {
+      "comment" : "NeoDB Visibility - Description for public visibility option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Everyone can see it."
+          }
+        }
+      }
+    },
+    "neodb.common.visibility.public.label" : {
+      "comment" : "NeoDB Visibility, for collections and marks - Label for public visibility option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Public"
+          }
+        }
+      }
+    },
+    "neodb.item_post.type.collection.label.plural" : {
+      "comment" : "Item Post Type - Label for 'Collections' post type",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        }
+      }
+    },
+    "neodb.item_post.type.collection.label.singular" : {
+      "comment" : "Item Post Type - Label for 'Collection' post type",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collection"
+          }
+        }
+      }
+    },
+    "neodb.item_post.type.comment.label.plural" : {
+      "comment" : "Item Post Type - Label for 'Comments' post type",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Comments"
+          }
+        }
+      }
+    },
+    "neodb.item_post.type.comment.label.singular" : {
+      "comment" : "Item Post Type - Label for 'Comment' post type",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Comment"
+          }
+        }
+      }
+    },
+    "neodb.item_post.type.default.label.plural" : {
+      "comment" : "Item Post Type - Label for 'Posts' post type",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Posts"
+          }
+        }
+      }
+    },
+    "neodb.item_post.type.default.label.singular" : {
+      "comment" : "Item Post Type - Label for 'Post' post type",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Post"
+          }
+        }
+      }
+    },
+    "neodb.item_post.type.mark.label.plural" : {
+      "comment" : "Item Post Type - Label for 'Marks' post type",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Marks"
+          }
+        }
+      }
+    },
+    "neodb.item_post.type.mark.label.singular" : {
+      "comment" : "Item Post Type - Label for 'Mark' post type",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Mark"
+          }
+        }
+      }
+    },
+    "neodb.item_post.type.note.label.plural" : {
+      "comment" : "Item Post Type - Label for 'Notes' post type",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Notes"
+          }
+        }
+      }
+    },
+    "neodb.item_post.type.note.label.singular" : {
+      "comment" : "Item Post Type - Label for 'Note' post type",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Note"
+          }
+        }
+      }
+    },
+    "neodb.item_post.type.review.label.plural" : {
+      "comment" : "Item Post Type - Label for 'Reviews' post type",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Reviews"
+          }
+        }
+      }
+    },
+    "neodb.item_post.type.review.label.singular" : {
+      "comment" : "Item Post Type - Label for 'Review' post type",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Review"
+          }
+        }
+      }
+    },
+    "neodb.item.category.book.label.plural" : {
+      "comment" : "Plural noun without action, usually referring to a collection of books",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Books"
+          }
+        }
+      }
+    },
+    "neodb.item.category.book.label.singular" : {
+      "comment" : "Singular noun without action, usually referring to a single book",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Book"
+          }
+        }
+      }
+    },
+    "neodb.item.category.collection.label.plural" : {
+      "comment" : "Plural noun without action, usually referring to a collection of collections",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collections"
+          }
+        }
+      }
+    },
+    "neodb.item.category.collection.label.singular" : {
+      "comment" : "Singular noun without action, usually referring to a single collection",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collection"
+          }
+        }
+      }
+    },
+    "neodb.item.category.game.label.plural" : {
+      "comment" : "Plural noun without action, usually referring to a collection of games",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Games"
+          }
+        }
+      }
+    },
+    "neodb.item.category.game.label.singular" : {
+      "comment" : "Singular noun without action, usually referring to a single game",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Game"
+          }
+        }
+      }
+    },
+    "neodb.item.category.movie.label.plural" : {
+      "comment" : "Plural noun without action, usually referring to a collection of movies",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Movies"
+          }
+        }
+      }
+    },
+    "neodb.item.category.movie.label.singular" : {
+      "comment" : "Singular noun without action, usually referring to a single movie",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Movie"
+          }
+        }
+      }
+    },
+    "neodb.item.category.music.label.plural" : {
+      "comment" : "Plural noun without action, usually referring to a collection of music",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Music"
+          }
+        }
+      }
+    },
+    "neodb.item.category.music.label.singular" : {
+      "comment" : "Singular noun without action, usually referring to a single music",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Music"
+          }
+        }
+      }
+    },
+    "neodb.item.category.performance.label.plural" : {
+      "comment" : "Plural noun without action, usually referring to a collection of performances",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Performances"
+          }
+        }
+      }
+    },
+    "neodb.item.category.performance.label.singular" : {
+      "comment" : "Singular noun without action, usually referring to a single performance",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Performance"
+          }
+        }
+      }
+    },
+    "neodb.item.category.podcast.label.plural" : {
+      "comment" : "Plural noun without action, usually referring to a collection of podcasts",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Podcasts"
+          }
+        }
+      }
+    },
+    "neodb.item.category.podcast.label.singular" : {
+      "comment" : "Singular noun without action, usually referring to a single podcast",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Podcast"
+          }
+        }
+      }
+    },
+    "neodb.item.category.searchable.all.label" : {
+      "comment" : "Item Category - Label for 'All' category in shelf",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "All"
+          }
+        }
+      }
+    },
+    "neodb.item.category.searchable.movie_and_tv.label" : {
+      "comment" : "Item Category - Label for 'Movies & TV Shows' category in shelf",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Movie & TV"
+          }
+        }
+      }
+    },
+    "neodb.item.category.shelf_available.all.label" : {
+      "comment" : "Item Category - Label for 'All' category in shelf",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "All"
+          }
+        }
+      }
+    },
+    "neodb.item.category.tv.label.plural" : {
+      "comment" : "Plural noun without action, usually referring to a collection of tv shows",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "TV Shows"
+          }
+        }
+      }
+    },
+    "neodb.item.category.tv.label.plural.abbreviated" : {
+      "comment" : "Abbreviated plural noun without action, usually referring to a collection of tv shows",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "TV"
+          }
+        }
+      }
+    },
+    "neodb.item.category.tv.label.singular" : {
+      "comment" : "Singular noun without action, usually referring to a single tv show",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "TV Show"
+          }
+        }
+      }
+    },
+    "neodb.item.category.tv.label.singular.abbreviated" : {
+      "comment" : "Abbreviated singular noun without action, usually referring to a single tv show",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "TV"
+          }
+        }
+      }
+    },
+    "neodb.note.progress_type.chapter.label" : {
+      "comment" : "NeoDB Note Progress Type - Label for chapter option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Chapter"
+          }
+        }
+      }
+    },
+    "neodb.note.progress_type.cycle.label" : {
+      "comment" : "NeoDB Note Progress Type - Label for cycle option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Cycle"
+          }
+        }
+      }
+    },
+    "neodb.note.progress_type.episode.label" : {
+      "comment" : "NeoDB Note Progress Type - Label for episode option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Episode"
+          }
+        }
+      }
+    },
+    "neodb.note.progress_type.page.label" : {
+      "comment" : "NeoDB Note Progress Type - Label for page option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Page"
+          }
+        }
+      }
+    },
+    "neodb.note.progress_type.part.label" : {
+      "comment" : "NeoDB Note Progress Type - Label for part option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Part"
+          }
+        }
+      }
+    },
+    "neodb.note.progress_type.percentage.label" : {
+      "comment" : "NeoDB Note Progress Type - Label for percentage option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Percentage"
+          }
+        }
+      }
+    },
+    "neodb.note.progress_type.timestamp.label" : {
+      "comment" : "NeoDB Note Progress Type - Label for timestamp option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Timestamp"
+          }
+        }
+      }
+    },
+    "neodb.note.progress_type.track.label" : {
+      "comment" : "NeoDB Note Progress Type - Label for track option",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Track"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.1"
+}
