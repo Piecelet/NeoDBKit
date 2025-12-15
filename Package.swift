@@ -27,6 +27,7 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/scinfu/SwiftSoup.git", from: "2.6.0"),
+        .package(url: "https://github.com/lcandy2/SymbolKit.git", from: "1.0.0")
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -37,7 +38,10 @@ let package = Package(
         ),
         .target(
             name: "NeoDBModels",
-            dependencies: ["SwiftSoup"],
+            dependencies: [
+                "SwiftSoup",
+                "SymbolKit"
+            ],
             resources: [
               .process("Resources")
             ]

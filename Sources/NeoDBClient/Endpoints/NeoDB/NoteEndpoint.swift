@@ -26,13 +26,13 @@ public enum NoteEndpoint {
     /// - Parameters:
     ///   - itemUUID: Identifier of the target item.
     ///   - noteIn: Payload describing the note to create.
-    case create(itemUUID: ItemUUID, noteIn: NoteIn)
+    case create(itemUUID: ItemUUID, noteIn: NoteInSchema)
 
     /// Updates an existing note by UUID.
     /// - Parameters:
     ///   - noteUUID: Identifier of the note to update.
     ///   - noteIn: Updated note payload.
-    case update(noteUUID: NoteAttributes.UUID, noteIn: NoteIn)
+    case update(noteUUID: NoteAttributes.UUID, noteIn: NoteInSchema)
 
     /// Deletes a note by UUID.
     /// - Parameter noteUUID: Identifier of the note to delete.

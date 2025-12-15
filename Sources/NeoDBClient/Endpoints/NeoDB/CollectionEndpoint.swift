@@ -23,7 +23,7 @@ public enum CollectionEndpoint {
 
     /// Creates a new collection under the authenticated user.
     /// - Parameter collectionIn: Payload describing the collection to create.
-    case create(collectionIn: CollectionIn)
+    case create(collectionIn: CollectionInSchema)
 
     /// Retrieves a collection by UUID.
     /// - Parameters:
@@ -36,7 +36,7 @@ public enum CollectionEndpoint {
     /// - Parameters:
     ///   - uuid: Collection identifier.
     ///   - collectionIn: Updated collection payload.
-    case update(uuid: CollectionAttributes.UUID, collectionIn: CollectionIn)
+    case update(uuid: CollectionAttributes.UUID, collectionIn: CollectionInSchema)
 
     /// Deletes a collection by UUID in the authenticated user's scope.
     /// - Parameter uuid: Collection identifier.
@@ -62,7 +62,7 @@ public enum CollectionEndpoint {
     ///   - collectionInItem: Item payload to add to the collection.
     case itemAdd(
         uuid: CollectionAttributes.UUID,
-        collectionInItem: CollectionIn.Item
+        collectionInItem: CollectionInSchema.Item
     )
 
     /// Removes an item from the specified collection in the user's scope.

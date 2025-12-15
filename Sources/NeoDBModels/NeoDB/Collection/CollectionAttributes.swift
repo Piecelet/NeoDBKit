@@ -30,3 +30,22 @@ public enum CollectionAttributes {
     /// Deprecated. Use `CoverImageURL` instead.
     public typealias Cover = String
 }
+
+public extension CollectionAttributes.URL {
+    /// Converts the relative collection URL to a full URL using the provided base URL.
+    /// - Parameter baseURL: The base URL to resolve against.
+    /// - Returns: A full `Foundation.URL` if the conversion is successful, otherwise `nil`.
+    func makeFullCollectionURL(baseURL: Foundation.URL) -> Foundation.URL? {
+        return Foundation.URL(string: self, relativeTo: baseURL)
+    }
+
+    /// Converts the relative collection URL to a full URL using the provided base URL string.
+    /// - Parameter baseURL: The base URL string to resolve against.
+    /// - Returns: A full `Foundation.URL` if the conversion is successful, otherwise `nil`.
+    func makeFullCollectionURL(baseURL: String) -> Foundation.URL? {
+        guard let base = Foundation.URL(string: baseURL) else {
+            return nil
+        }
+        return makeFullCollectionURL(baseURL: base)
+    }
+}

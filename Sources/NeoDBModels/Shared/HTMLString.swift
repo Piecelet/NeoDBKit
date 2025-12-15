@@ -12,7 +12,7 @@ import SwiftSoup
 import SwiftUI
 
 public enum CodingKeys: CodingKey {
-    case htmlValue, asMarkdown, asRawText, statusesURLs, links
+    case htmlValue, asMarkdown, asRawText, statusesURLs, links, hadTrailingTags
 }
 
 public struct HTMLString: Codable, Equatable, Hashable, @unchecked Sendable {
@@ -30,8 +30,25 @@ public struct HTMLString: Codable, Equatable, Hashable, @unchecked Sendable {
     public var asRawText: String = ""
     public var statusesURLs = [URL]()
     public private(set) var links = [Link]()
+    public private(set) var hadTrailingTags = false
 
     public var asSafeMarkdownAttributedString: AttributedString = .init()
+    private var safeMarkdownAttributedStringWithoutNeoDBStatusCached: AttributedString = .init()
+
+    private static func makeSafeMarkdownAttributedStringWithoutNeoDBStatus(from markdown: String) -> AttributedString {
+        var text = markdown
+        let lines = text.split(separator: "\n", maxSplits: 1)
+        if let firstLine = lines.first, firstLine.contains("~neodb~") {
+            text = lines.count > 1 ? String(lines[1]) : ""
+        }
+
+        text = text.trimmingCharacters(in: .newlines)
+        do {
+            return try AttributedString(markdown: text, options: Self.markdownOptionsCached)
+        } catch {
+            return AttributedString(text)
+        }
+    }
 
     // 获取第一行（如果包含 ~neodb~）
     public var neodbStatusLine: String? {
@@ -71,20 +88,7 @@ public struct HTMLString: Codable, Equatable, Hashable, @unchecked Sendable {
     
     // 获取不包含 NeoDB 状态行的内容
     public var asSafeMarkdownAttributedStringWithoutNeoDBStatus: AttributedString {
-        var text = asMarkdown
-        if neodbStatusLine != nil {
-            // 如果存在 NeoDB 状态行，移除第一行（包括换行符）
-            if let newlineIndex = text.firstIndex(of: "\n") {
-                text = String(text[text.index(after: newlineIndex)...])
-            }
-        }
-        // 移除开头和结尾的换行符，但保留内容中的换行
-        text = text.trimmingCharacters(in: .newlines)
-        do {
-            return try AttributedString(markdown: text, options: Self.markdownOptionsCached)
-        } catch {
-            return AttributedString(text)
-        }
+        safeMarkdownAttributedStringWithoutNeoDBStatusCached
     }
     
     public var asSafeMarkdownAttributedStringWithoutRating: AttributedString {
@@ -153,6 +157,8 @@ public struct HTMLString: Codable, Equatable, Hashable, @unchecked Sendable {
                 statusesURLs = try container.decode(
                     [URL].self, forKey: .statusesURLs)
                 links = try container.decode([Link].self, forKey: .links)
+                hadTrailingTags =
+                    (try? container.decode(Bool.self, forKey: .hadTrailingTags)) ?? false
             } catch {
                 htmlValue = ""
             }
@@ -168,6 +174,8 @@ public struct HTMLString: Codable, Equatable, Hashable, @unchecked Sendable {
                 asSafeMarkdownAttributedString = AttributedString(
                     stringLiteral: htmlValue)
             }
+            safeMarkdownAttributedStringWithoutNeoDBStatusCached =
+                Self.makeSafeMarkdownAttributedStringWithoutNeoDBStatus(from: asMarkdown)
         }
     }
 
@@ -176,6 +184,7 @@ public struct HTMLString: Codable, Equatable, Hashable, @unchecked Sendable {
         asMarkdown = stringValue
         asRawText = stringValue
         statusesURLs = []
+        hadTrailingTags = false
 
         if parseMarkdown {
             do {
@@ -189,6 +198,9 @@ public struct HTMLString: Codable, Equatable, Hashable, @unchecked Sendable {
             asSafeMarkdownAttributedString = AttributedString(
                 stringLiteral: htmlValue)
         }
+
+        safeMarkdownAttributedStringWithoutNeoDBStatusCached =
+            Self.makeSafeMarkdownAttributedStringWithoutNeoDBStatus(from: asMarkdown)
     }
 
     // MARK: - Convenience factory: parse from raw HTML like decoder
@@ -205,11 +217,13 @@ public struct HTMLString: Codable, Equatable, Hashable, @unchecked Sendable {
         try container.encode(asRawText, forKey: .asRawText)
         try container.encode(statusesURLs, forKey: .statusesURLs)
         try container.encode(links, forKey: .links)
+        try container.encode(hadTrailingTags, forKey: .hadTrailingTags)
     }
 
     // MARK: - DRY HTML parsing pipeline used by decoder and factory
     private mutating func parseHTML(_ html: String) {
         htmlValue = html
+        hadTrailingTags = false
         // Use cached regex instances
         main_regex = Self.mainRegexCached
         underscore_regex = Self.underscoreRegexCached
@@ -221,6 +235,7 @@ public struct HTMLString: Codable, Equatable, Hashable, @unchecked Sendable {
             handleNode(node: document, listCounters: &listCounters)
 
             document.outputSettings(OutputSettings().prettyPrint(pretty: false))
+            try document.select("p.quote-inline").remove()
             try document.select("br").after("\n")
             try document.select("p").after("\n\n")
             let htmlDoc = try document.html()
@@ -231,6 +246,8 @@ public struct HTMLString: Codable, Equatable, Hashable, @unchecked Sendable {
             text = text.trimmingCharacters(in: .whitespacesAndNewlines)
             asRawText = (try? Entities.unescape(text)) ?? text
             if asMarkdown.hasPrefix("\n") { _ = asMarkdown.removeFirst() }
+
+            removeTrailingTags(doc: document)
         } catch {
             asRawText = html
         }
@@ -241,6 +258,64 @@ public struct HTMLString: Codable, Equatable, Hashable, @unchecked Sendable {
             )
         } catch {
             asSafeMarkdownAttributedString = AttributedString(stringLiteral: html)
+        }
+
+        safeMarkdownAttributedStringWithoutNeoDBStatusCached =
+            Self.makeSafeMarkdownAttributedStringWithoutNeoDBStatus(from: asMarkdown)
+    }
+
+    private mutating func removeTrailingTags(doc: Document) {
+        if !asMarkdown.contains("#") { return }
+
+        let paragraphs = asMarkdown.split(
+            separator: "\n\n",
+            omittingEmptySubsequences: false
+        ).map(String.init)
+        guard
+            let lastIndex = paragraphs.lastIndex(where: {
+                !$0.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty
+            })
+        else {
+            return
+        }
+
+        let isLastParagraphTagsOnly: Bool = {
+            do {
+                let paras = try doc.select("p:not(.quote-inline)")
+                guard let lastP = paras.array().last else { return false }
+                var hasAtLeastOneHashtag = false
+                for child in lastP.getChildNodes() {
+                    let name = child.nodeName()
+                    if name == "#text" {
+                        let txt = child.description.trimmingCharacters(in: .whitespacesAndNewlines)
+                        if !txt.isEmpty { return false }
+                    } else if name == "a" {
+                        let cls = (try? child.attr("class")) ?? ""
+                        if !cls.contains("hashtag") { return false }
+                        hasAtLeastOneHashtag = true
+                    } else {
+                        return false
+                    }
+                }
+                return hasAtLeastOneHashtag
+            } catch {
+                return false
+            }
+        }()
+
+        guard isLastParagraphTagsOnly else { return }
+
+        hadTrailingTags = true
+        let updatedMarkdownParagraphs = Array(paragraphs.prefix(lastIndex))
+        asMarkdown = updatedMarkdownParagraphs.joined(separator: "\n\n")
+
+        let rawParagraphs = asRawText.split(
+            separator: "\n\n",
+            omittingEmptySubsequences: false
+        ).map(String.init)
+        if lastIndex < rawParagraphs.count {
+            let updatedRawParagraphs = Array(rawParagraphs.prefix(lastIndex))
+            asRawText = updatedRawParagraphs.joined(separator: "\n\n")
         }
     }
 
@@ -271,6 +346,9 @@ public struct HTMLString: Codable, Equatable, Hashable, @unchecked Sendable {
             }
 
             if node.nodeName() == "p" {
+                if let className = try? node.attr("class"), className == "quote-inline" {
+                    return
+                }
                 if asMarkdown.count > 0 && !skipParagraph {
                     asMarkdown += "\n\n"
                 }

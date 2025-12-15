@@ -1,0 +1,27 @@
+//
+//  MastodonEmoji.swift
+//  NeoDB
+//
+//  Created by citron on 1/13/25.
+//
+//  Based on https://github.com/Dimillian/IceCubesApp
+//  Witch is licensed under the AGPL-3.0 License
+//
+
+import Foundation
+
+public struct MastodonEmoji: Codable, Hashable, Identifiable, Equatable, Sendable {
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(shortcode)
+    }
+
+    public var id: String {
+        shortcode
+    }
+
+    public let shortcode: String
+    public let url: URL
+    public let staticUrl: URL
+    public let visibleInPicker: Bool
+    public let category: String?
+}

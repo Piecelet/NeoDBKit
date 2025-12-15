@@ -1,13 +1,13 @@
 {
-  "originHash" : "2b4b92d55948370b42dec7672b86511a669d4849160a4da7c2c45eb0977ea8fa",
+  "originHash" : "10143d92250cac01f311342575a84d46c9d08a0141c9cb80b9ce18da2a16aca7",
   "pins" : [
     {
       "identity" : "lrucache",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/nicklockwood/LRUCache.git",
       "state" : {
-        "revision" : "e0e9e039b33db8f2ef39b8e25607e38f46b13584",
-        "version" : "1.1.2"
+        "revision" : "0d91406ecd4d6c1c56275866f00508d9aeacc92a",
+        "version" : "1.2.0"
       }
     },
     {

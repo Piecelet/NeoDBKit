@@ -21,7 +21,8 @@ public enum ItemEndpoint {
 
 extension ItemEndpoint {
     public static func make(id: ItemID, category: ItemCategory) -> ItemEndpoint {
-        let uuid = id.components(separatedBy: "/").last ?? id
+//        let uuid = id.components(separatedBy: "/").last ?? id
+        let uuid = id.uuid
         return .make(UUID: uuid, category: category)
     }
 

@@ -11,7 +11,7 @@ import SwiftSoup
 
 public class NeoDBURL {
 //    private static let logger = Logger.services.url.neodbURL
-    private static let neodbItemIdentifier = "~neodb~"
+    public static let neodbItemIdentifier = "~neodb~"
     private static let isDebugLoggingEnabled = false
     
     private static func log(_ message: String) {
@@ -44,10 +44,11 @@ public class NeoDBURL {
 
         let type = pathComponents[1]
         var uuid = pathComponents[2]
+        let lowerType = type.lowercased()
 
         // Handle special cases for tv seasons and episodes
         let itemType: ItemType
-        if type == "podcast" && pathComponents.count >= 4 {
+        if lowerType == "podcast" && pathComponents.count >= 4 {
             if pathComponents[2] == "episode" {
                 itemType = .podcastEpisode
                 uuid = pathComponents[3]
@@ -55,7 +56,7 @@ public class NeoDBURL {
                 itemType = .podcast
                 uuid = pathComponents[2]
             }
-        } else if type == "tv" && pathComponents.count >= 4 {
+        } else if lowerType == "tv" && pathComponents.count >= 4 {
             switch pathComponents[2] {
             case "season":
                 itemType = .tvSeason
@@ -65,12 +66,14 @@ public class NeoDBURL {
                 itemType = .tv
             }
             uuid = pathComponents[3]
-        } else if type == "album" {
+        } else if lowerType == "tv" {
+            itemType = .tv
+        } else if lowerType == "album" {
             itemType = .music
-        } else if type == "performance" && pathComponents[2] == "production" {
+        } else if lowerType == "performance" && pathComponents.count >= 4 && pathComponents[2].lowercased() == "production" {
             itemType = .performanceProduction
             uuid = pathComponents[3]
-        } else if let itemTypeDecode = ItemType(rawValue: type) {
+        } else if let itemTypeDecode = ItemType.allCases.first(where: { $0.rawValue.lowercased() == lowerType }) {
             itemType = itemTypeDecode
         } else {
             log("Unknown item type: \(type), defaulting to book")
@@ -91,7 +94,7 @@ public class NeoDBURL {
 
         // Create a temporary ItemSchema
         let urlItem = ItemSchema(
-            id: itemComponents.url?.absoluteString ?? url.absoluteString,
+            id: ItemID(itemComponents.url ?? url),
             type: itemType,
             uuid: uuid,
             url: itemComponents.url?.absoluteString ?? url.absoluteString,
@@ -108,7 +111,6 @@ public class NeoDBURL {
             rating: nil,
             ratingCount: nil,
             ratingDistribution: nil,
-            brief: nil
         )
 
         log("Created ItemSchema for \(itemType.rawValue)")
@@ -119,7 +121,7 @@ public class NeoDBURL {
     /// Parses a NeoDB-style item URL even when it doesn't contain the `~neodb~` marker.
     /// Uses ItemID.neodbUUIDIfValid for validation and path-based category extraction.
     public static func parseStrictItemURL(_ url: URL, title: String? = nil, coverImageUrl: URL? = nil) -> (any ItemProtocol)? {
-        let raw: ItemID = url.absoluteString
+        let raw: ItemID = ItemID(url)
         guard let uuid = raw.neodbUUIDIfValid,
               let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
             return nil
@@ -130,7 +132,7 @@ public class NeoDBURL {
         let parts = path.split(separator: "/").map(String.init)
         guard parts.count >= 2 else { return nil }
 
-        let first = parts[0]
+        let first = parts[0].lowercased()
         var itemType: ItemType
         var finalUUID = uuid
 
@@ -163,10 +165,10 @@ public class NeoDBURL {
             // Legacy alias for music
             itemType = .music
             finalUUID = parts[1]
-        } else if first == "performance" && parts.count >= 3 && parts[1] == "production" {
+        } else if first == "performance" && parts.count >= 3 && parts[1].lowercased() == "production" {
             itemType = .performanceProduction
             finalUUID = parts[2]
-        } else if let typ = ItemType(rawValue: first) {
+        } else if let typ = ItemType.allCases.first(where: { $0.rawValue.lowercased() == first }) {
             itemType = typ
             finalUUID = parts[1]
         } else {
@@ -174,11 +176,11 @@ public class NeoDBURL {
         }
 
         // Validate id length again (defensive)
-        guard ItemID.isValidNeoDBId(finalUUID) else { return nil }
+        guard ItemUUID.testIsLikelyValid(finalUUID) else { return nil }
 
         // Build a minimal ItemSchema
         let item = ItemSchema(
-            id: url.absoluteString,
+            id: ItemID(url),
             type: itemType,
             uuid: finalUUID,
             url: url.absoluteString,
@@ -194,8 +196,7 @@ public class NeoDBURL {
             coverImageUrl: coverImageUrl,
             rating: nil,
             ratingCount: nil,
-            ratingDistribution: nil,
-            brief: nil
+            ratingDistribution: nil
         )
         return item
     }
